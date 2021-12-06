@@ -1,0 +1,78 @@
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import Textarea from 'react-textarea-autosize';
+import AceEditor from "react-ace";
+
+import "ace-builds/src-noconflict/mode-java";
+import "ace-builds/src-noconflict/theme-eclipse";
+
+const TitleInput = styled.input`
+    width: 100%;
+    border: none;
+    outline: none;
+    font-weight: 500;
+    font-size: 1.25rem;
+`;
+
+const StyledTextArea = styled(Textarea)`
+    width: 100%;
+    border: none;
+    outline: none;
+    font-weight: 300;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+    resize: none;
+`
+
+class InputSet extends Component {
+
+    static propTypes = {
+        onChange: PropTypes.func,
+        title: PropTypes.string,
+        body: PropTypes.string,
+        code: PropTypes.string
+    }
+
+    componentDidMount() {
+        // 이 컴포넌트가 화면에 나타나면 제목 인풋에 포커스를 줍니다.
+        //this.title.focus();
+    }
+
+    
+
+    render() {
+        const { onChange, onEditChange, title, body, code } = this.props;
+
+        return (
+            <div>
+                <TitleInput 
+                    name="title" 
+                    onChange={onChange} 
+                    placeholder="제목" 
+                    innerRef={ref=>this.title = ref}
+                    value={title}
+                />
+                <StyledTextArea
+                    minRows={3}
+                    maxRows={20}
+                    placeholder="메모를 입력하세요..."
+                    name="body"
+                    onChange={onChange}
+                    value={body}
+                />
+                 {/* <AceEditor
+                    mode="javascript"
+                    theme="eclipse"
+                    onChange={onEditChange}
+                    name="code"
+                    width="100%"
+                    editorProps={{ $blockScrolling: true }}
+                    value={code}
+                /> */}
+            </div>
+        );
+    }
+}
+
+export default InputSet;
